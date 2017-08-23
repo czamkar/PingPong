@@ -36,6 +36,8 @@ function create() {
 	ball.anchor.set(0.5, 0.5);
 	ball.body.setCircle(1000);
 	ball.body.collideWorldBounds = true;
+		this.board2.body.collideWorldBounds = true;
+		this.board1.body.collideWorldBounds = true;
 	this.board2.body.immovable = true;
 	this.board1.body.immovable = true;
 	pointsTxt1 = game.add.text(780, game.world.centerY - 30, '0', { font: "20px Arial", fill: "#ffffff", align: "left" });
