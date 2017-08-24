@@ -1,7 +1,7 @@
 var BoardWorld = {
 	velocity: 8
 };
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { 
+var game = new Phaser.Game(320, 480, Phaser.CANVAS, 'phaser-example', { 
 	preload: preload,
 	create: create,
 	update: update,
@@ -25,15 +25,15 @@ var ball
 var beep;
 
 function create() {
+	game.add.tileSprite(0, 0, 320, 480, 'background');
 	beep = game.add.audio('beep');
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.stage.backgroundColor = '#000000';
 	ball = game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
 	this.board1 = game.add.sprite(game.world.centerX, 0 ,'board1');
-this.board1.scale.setTo(1.5,1);
+	this.board1.scale.setTo(1.5,1);
 	this.board2 = game.add.sprite(game.world.centerX, game.world._height ,'board2');
-this.board2.scale.setTo(1.5,1);
-	//this.board2.body.rotation  = 90;
+	this.board2.scale.setTo(1.5,1);
 	this.keys = game.input.keyboard.createCursorKeys();
 	game.physics.arcade.enable([ball, this.board1, this.board2]);
 	ball.body.bounce.set(1);
@@ -45,8 +45,8 @@ this.board2.scale.setTo(1.5,1);
 	this.board1.body.collideWorldBounds = true;
 	this.board2.body.immovable = true;
 	this.board1.body.immovable = true;
-	pointsTxt1 = game.add.text(780, game.world.centerY - 30, '0', { font: "20px Arial", fill: "#ffffff", align: "left" });
-	pointsTxt2 = game.add.text(780, game.world.centerY + 30, '0', { font: "20px Arial", fill: "#ffffff", align: "left" });
+	pointsTxt1 = game.add.text(game.world._width - 30 , game.world.centerY - 30, '0', { font: "20px Arial", fill: "#ffffff", align: "left" });
+	pointsTxt2 = game.add.text(game.world._width - 30, game.world.centerY + 10, '0', { font: "20px Arial", fill: "#ffffff", align: "left" });
 	ball.body.onWorldBounds = new Phaser.Signal();
 	ball.body.onWorldBounds.add(hitWorldBounds, this);
 	this.board2.body.bounce.set(1);
@@ -56,7 +56,7 @@ function hitWorldBounds (sprite, up, down, left, right) {
 		points1++;
 		pointsTxt1.text = points1;
 		ball.reset(game.world.centerX, game.world.centerY);
-		ball.body.velocity.set(300);
+		ball.body.velocity.set(-300);
 	}
 	if(up){
 		points2++;
@@ -74,7 +74,7 @@ function update(){
 		this.board2.x -= BoardWorld.velocity;
 	}
 	if (this.keys.right.isDown){
-		this.board2 .x += BoardWorld.velocity;
+		this.board2.x += BoardWorld.velocity;
 	}
 	if (this.keys.up.isDown){
 		this.board1.x -= BoardWorld.velocity;
@@ -84,14 +84,14 @@ function update(){
 	}
 }
 function collisionHandler(){
-	console.log("Pum");
 	 beep.play();
 }
 function render () {
-	
+	/*
 	game.debug.spriteInfo(ball, 32, 32);
 	game.debug.body(ball);
+	*//*
 	game.debug.body(this.board2);
-	game.debug.body(this.board1);
+	game.debug.body(this.board1);*/
 	
 }
